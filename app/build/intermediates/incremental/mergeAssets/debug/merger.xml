@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\Files\AndroidDev\QuickStartApp1\app\src\main\assets"/></dataSet><dataSet config="debug"><source path="D:\Files\AndroidDev\QuickStartApp1\app\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="5.0.89"><source path="D:\GitHub\Hue-LocationPlay\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\5.0.89\assets"/></dataSet><dataSet config="main"><source path="D:\GitHub\Hue-LocationPlay\app\src\main\assets"/></dataSet><dataSet config="debug"><source path="D:\GitHub\Hue-LocationPlay\app\src\debug\assets"/></dataSet></merger>

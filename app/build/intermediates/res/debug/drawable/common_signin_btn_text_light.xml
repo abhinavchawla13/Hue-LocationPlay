@@ -16,4 +16,4 @@
     <item
         android:drawable="@drawable/common_signin_btn_text_normal_light" />
 </selector>
-<!-- From: file:/D:/Files/AndroidDev/QuickStartApp1/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.89/res/drawable/common_signin_btn_text_light.xml -->
+<!-- From: file:/D:/GitHub/Hue-LocationPlay/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.89/res/drawable/common_signin_btn_text_light.xml -->

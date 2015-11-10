@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/D:/Files/AndroidDev/QuickStartApp1/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.89/res/values-ar/common_strings.xml -->
+    <!-- From: file:/D:/GitHub/Hue-LocationPlay/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/5.0.89/res/values-ar/common_strings.xml -->
     <eat-comment/>
     <string msgid="4181637455539816337" name="common_google_play_services_enable_button">"‏تمكين خدمات Google Play"</string>
     <string msgid="7627896071867667758" name="common_google_play_services_enable_text">"‏لن يعمل هذا التطبيق ما لم يتم تمكين خدمات Google Play."</string>
