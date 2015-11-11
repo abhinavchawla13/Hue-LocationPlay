@@ -41,7 +41,7 @@
     <!-- From: file:/D:/GitHub/Hue-LocationPlay/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
-    <string name="app_name">Hue QuickStart</string>
+    <string name="app_name">Hue LocationPlay</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_find_bridge">Find new bridge</string>
     <string name="btn_more">More</string>

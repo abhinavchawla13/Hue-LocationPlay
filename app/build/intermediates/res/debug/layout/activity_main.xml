@@ -28,9 +28,9 @@
         android:layout_height="wrap_content"
         android:text="Latitude"
         android:id="@+id/latitudeText"
-        android:layout_marginTop="46dp"
-        android:layout_below="@+id/buttonRand"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/longitudeText"
+        android:layout_alignLeft="@+id/longitudeText"
+        android:layout_alignStart="@+id/longitudeText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,7 +38,27 @@
         android:text="Longitude"
         android:id="@+id/longitudeText"
         android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/buttonRand"
-        android:layout_alignEnd="@+id/buttonRand" />
+        android:layout_alignLeft="@+id/buttonRand"
+        android:layout_alignStart="@+id/buttonRand" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Home"
+        android:id="@+id/setHome"
+        android:layout_above="@+id/latitudeText"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_alignEnd="@+id/textView1"
+        android:layout_marginBottom="27dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="homeLocation"
+        android:id="@+id/homeLocation"
+        android:layout_alignTop="@+id/setHome"
+        android:layout_alignLeft="@+id/latitudeText"
+        android:layout_alignStart="@+id/latitudeText" />
 
 </RelativeLayout><!-- From: file:/D:/GitHub/Hue-LocationPlay/app/src/main/res/layout/activity_main.xml -->

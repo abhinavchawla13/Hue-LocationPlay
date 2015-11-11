@@ -7,6 +7,10 @@ import java.util.Map;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
@@ -36,15 +41,27 @@ import com.google.android.gms.common.api.GoogleApiClient;
  * @author SteveyO
  */
 public class MyApplicationActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
+//    In activity variables
     private PHHueSDK phHueSDK;
     private static final int MAX_HUE = 65535;
     public static final String TAG = "QuickStart";
+    String mLastUpdateTime;
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
+    Location mCurrentLocation;
+    Location mLastLocation;
+    String homeLatitude;
+    String homeLongitude;
+
+//    GUI Variables
     TextView latitudeText;
     TextView longitudeText;
-    Location mCurrentLocation;
-    String mLastUpdateTime;
+    Button randomButton;
+    Button setHomeButton;
+    TextView homeLocation;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,22 +70,31 @@ public class MyApplicationActivity extends Activity implements GoogleApiClient.C
         setContentView(R.layout.activity_main);
         phHueSDK = PHHueSDK.create();
         phHueSDK.setAppName("LocationPlay");
-        Button randomButton;
+
         latitudeText = (TextView) findViewById(R.id.latitudeText);
         longitudeText = (TextView) findViewById(R.id.longitudeText);
+        randomButton = (Button) findViewById(R.id.buttonRand);
+        setHomeButton = (Button) findViewById(R.id.setHome);
+        homeLocation = (TextView) findViewById(R.id.homeLocation);
 
         buildGoogleApiClient();
         mGoogleApiClient.connect();
         createLocationRequest();
 
-        randomButton = (Button) findViewById(R.id.buttonRand);
-        randomButton.setOnClickListener(new OnClickListener() {
 
+
+        randomButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 randomLights();
             }
+        });
 
+        setHomeButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeLocationChangeAlert();
+            }
         });
 
 
@@ -84,10 +110,48 @@ public class MyApplicationActivity extends Activity implements GoogleApiClient.C
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(3000);
+        mLocationRequest.setInterval(3000);
+        mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
+
+    public void setHomeLocation(){
+        homeLatitude = String.valueOf(mCurrentLocation.getLatitude());
+        homeLongitude = String.valueOf(mCurrentLocation.getLongitude());
+    }
+
+    public void displayHomeLocation(){
+        if (homeLatitude != null && homeLongitude != null){
+            homeLocation.setText("(" + homeLatitude + ", " + homeLongitude + ")");
+        }
+        else{
+            homeLocation.setText("");
+        }
+    }
+
+    public void homeLocationChangeAlert(){
+        DialogInterface.OnClickListener confirmCall = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i){
+                    case  DialogInterface.BUTTON_POSITIVE:
+                        setHomeLocation();
+                        displayHomeLocation();
+                        Toast.makeText(MyApplicationActivity.this, "Home location saved!", Toast.LENGTH_SHORT).show();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        displayHomeLocation();
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to modify your home location?")
+                .setPositiveButton("Yes", confirmCall)
+                .setNegativeButton("No", null).show();
+    }
+
 
     public void randomLights() {
         PHBridge bridge = phHueSDK.getSelectedBridge();
@@ -150,13 +214,14 @@ public class MyApplicationActivity extends Activity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             latitudeText.setText("(" + String.valueOf(mLastLocation.getLatitude()) + ", "
                     + String.valueOf(mLastLocation.getLongitude()) + ")");
             longitudeText.setText(" ");
         }
         startLocationUpdates();
+
 
     }
 
@@ -185,4 +250,15 @@ public class MyApplicationActivity extends Activity implements GoogleApiClient.C
         latitudeText.setText("(" + String.valueOf(mCurrentLocation.getLatitude()) + ", " + String.valueOf(mCurrentLocation.getLongitude()) + ")");
         longitudeText.setText(mLastUpdateTime);
     }
+
+//    I would like if it works in the background as well
+//    @Override
+//    public void onPause(){
+//        super.onPause();
+//        stopLocationUpdates();
+//    }
+//
+//    private void stopLocationUpdates() {
+//        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+//    }
 }
